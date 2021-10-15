@@ -1,0 +1,27 @@
+{
+  "plugins": [
+    "prettier"
+  ],
+  "extends": [
+    "@spotify",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 9,
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "prettier/prettier": "error",
+    "semi": "off",
+    "object-curly-spacing": "off",
+    "array-bracket-spacing": "off",
+    "no-console": "warn"
+  },
+  "env": {
+    "node": true,
+    "es6": true
+  }
+}

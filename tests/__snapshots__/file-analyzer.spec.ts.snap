@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FileAnalyzer should returned all identified comments 1`] = `
+Array [
+  Object {
+    "comments": Object {
+      "FIXME:": Array [
+        ":add implementation",
+      ],
+      "NOTE": Array [
+        "Please don't forget review",
+        "another note",
+      ],
+      "tODo:": Array [
+        "this should present",
+      ],
+    },
+    "file": "./tests/mockFiles/mockFile0.js",
+  },
+]
+`;
+
+exports[`FileAnalyzer should skip files with no matches 1`] = `Array []`;
