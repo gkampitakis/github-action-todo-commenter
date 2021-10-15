@@ -1,0 +1,9 @@
+name: 'github-action-todo-commenter'
+description: tbd
+
+runs:
+  using: 'node12'
+  main: 'lib/index.js'
+branding:
+  icon: 'check-circle'
+  color: 'green'
