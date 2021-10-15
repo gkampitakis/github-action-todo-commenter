@@ -1,0 +1,25 @@
+name: 'github-action-todo-commenter'
+description: tbd
+
+inputs:
+  github-token:
+    required: true
+    description: 
+  review-message:
+    required: false
+    description: tbd
+  tags:
+    required: false
+    description: tbd
+  ignore-pattern:
+    required: false
+    description: tbd
+
+# FIXME:
+
+runs:
+  using: 'node12'
+  main: 'lib/index.js'
+branding:
+  icon: 'check-circle'
+  color: 'green'

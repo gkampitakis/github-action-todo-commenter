@@ -1,1 +1,2 @@
-# github-action-todoist
+# Github Action Todo Commenter
+
