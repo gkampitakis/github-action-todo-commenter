@@ -9,6 +9,7 @@
     "outDir": "lib",
     "rootDir": "./src",
     "baseUrl": "./",
+    "esModuleInterop": true,
     "alwaysStrict": true,
     "strictFunctionTypes": true,
     "strictNullChecks": true,
