@@ -1,6 +1,22 @@
 name: 'github-action-todo-commenter'
 description: tbd
 
+inputs:
+  repo-token:
+    required: true
+    description: tbd
+  review-message:
+    required: false
+    description: tbd
+  block-pr:
+    required: false
+    description: tbd
+  tags:
+    required: false
+    description: tbd
+
+# FIXME:
+
 runs:
   using: 'node12'
   main: 'lib/index.js'

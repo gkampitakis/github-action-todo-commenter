@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FormatComment should format comment consistently 1`] = `
+"## Todo Commenter
+<details>
+<summary><strong>./tests/mockFiles/mockFile0.js</strong></summary>
+
+##### FIXME:
+
+- [ ] :add implementation
+
+##### NOTE
+
+- [ ] Please don't forget review
+- [ ] another note
+
+##### tODo:
+
+- [ ] this should present
+</details>
+
+<details>
+<summary><strong>./tests/mockFiles/mockFile2.js</strong></summary>
+
+##### FIXME:
+
+- [ ] :add implementation
+
+##### NOTE
+
+- [ ] Please don't forget review
+- [ ] another note
+
+##### tODo:
+
+- [ ] this should present
+</details>
+
+"
+`;
+
+exports[`FormatComment should tag actor with reviewMsg 1`] = `
+"## Todo Commenter
+<details>
+<summary><strong>./tests/mockFiles/mockFile0.js</strong></summary>
+
+##### FIXME:
+
+- [ ] :add implementation
+
+##### NOTE
+
+- [ ] Please don't forget review
+- [ ] another note
+
+##### tODo:
+
+- [ ] this should present
+</details>
+
+<details>
+<summary><strong>./tests/mockFiles/mockFile2.js</strong></summary>
+
+##### FIXME:
+
+- [ ] :add implementation
+
+##### NOTE
+
+- [ ] Please don't forget review
+- [ ] another note
+
+##### tODo:
+
+- [ ] this should present
+</details>
+
+---
+@mock-actor please review"
+`;

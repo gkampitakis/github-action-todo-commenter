@@ -2,23 +2,23 @@ import { createReadStream } from 'fs';
 import { createInterface } from 'readline';
 import path from 'path';
 
-type FileAnalyzerResult = {
+export type FileAnalyzerResults = {
   file: string;
   comments: Comments;
-};
+}[];
 type Comments = Record<string, string[]>;
 type EnhancedTag = { tag: string; regex: RegExp };
 
 export async function fileAnalyzer(
   filePaths: string[],
   tags: string[]
-): Promise<FileAnalyzerResult[]> {
+): Promise<FileAnalyzerResults> {
   const enhancedTags = tags.map(tag => ({
     tag,
     regex: new RegExp(`${tag}(.*)`)
   }));
   const ignoreMinSize = Math.min(...tags.map(t => t.length));
-  const result: FileAnalyzerResult[] = [];
+  const result: FileAnalyzerResults = [];
 
   for (const filePath of filePaths) {
     const absolutePath = path.join(process.cwd(), filePath);

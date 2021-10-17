@@ -54,7 +54,8 @@
     },
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.ts$",
     "collectCoverageFrom": [
-      "src/**/*.ts"
+      "src/**/*.ts",
+      "!src/**/index.ts"
     ],
     "coverageThreshold": {
       "global": {

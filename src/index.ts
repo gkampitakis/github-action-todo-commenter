@@ -1,3 +1,3 @@
-import { executor } from './executor';
+import { run } from './executor';
 
-executor();
+run();
