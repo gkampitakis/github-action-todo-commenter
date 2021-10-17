@@ -1,17 +1,12 @@
 import { context } from '@actions/github';
-import { readdir } from 'fs';
+import { getInput } from '@actions/core';
+import { fileAnalyzer } from './file-analyzer';
 
-export function executor(tags: string[]) {
-  const testFolder = './';
+export async function executor() {
+  const customTags = getInput('tags').split(',');
 
-  // We need to do the checkout to that branch
-  // Take the diff, read each file and find occurrences of tags
+  const comments = await fileAnalyzer([], customTags);
 
-  readdir(testFolder, (err, files) => {
-    files.forEach(file => {
-      console.log(file);
-    });
-  });
-
-  console.log(context.payload, tags);
+  console.log(comments);
+  console.log(context.payload);
 }

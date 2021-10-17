@@ -8,8 +8,9 @@
   "private": false,
   "scripts": {
     "prepare": "husky install",
-    "build": "tsc",
-    "test": "jest",
+    "tsc": "tsc",
+    "bundle": "npm run format-check && npm run lint && (npm run test || true)  && tsc && ncc build ./dist/index.js -m -o ./lib",
+    "test": " jest",
     "format": "prettier --write '**/*.ts'",
     "format-check": "prettier --check '**/*.ts'",
     "lint": "eslint src/**/*.ts"
@@ -24,6 +25,7 @@
     "@types/node": "^16.11.0",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
+    "@vercel/ncc": "^0.31.1",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-jest": "^25.2.1",
