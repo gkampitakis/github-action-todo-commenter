@@ -6,7 +6,7 @@
     "removeComments": true,
     "noLib": false,
     "pretty": true,
-    "outDir": "lib",
+    "outDir": "dist",
     "rootDir": "./src",
     "baseUrl": "./",
     "esModuleInterop": true,

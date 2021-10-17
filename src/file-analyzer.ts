@@ -5,12 +5,18 @@ import path from 'path';
 type FileAnalyzerResult = {
   file: string;
   comments: Comments;
-}
+};
 type Comments = Record<string, string[]>;
-type EnhancedTag = { tag: string, regex: RegExp };
+type EnhancedTag = { tag: string; regex: RegExp };
 
-export async function fileAnalyzer(filePaths: string[], tags: string[]): Promise<FileAnalyzerResult[]> {
-  const enhancedTags = tags.map(tag => ({ tag, regex: new RegExp(tag + '(.*)') }));
+export async function fileAnalyzer(
+  filePaths: string[],
+  tags: string[]
+): Promise<FileAnalyzerResult[]> {
+  const enhancedTags = tags.map(tag => ({
+    tag,
+    regex: new RegExp(`${tag}(.*)`)
+  }));
   const ignoreMinSize = Math.min(...tags.map(t => t.length));
   const result: FileAnalyzerResult[] = [];
 
@@ -27,7 +33,11 @@ export async function fileAnalyzer(filePaths: string[], tags: string[]): Promise
   return result;
 }
 
-async function readFile(filepath: string, tags: EnhancedTag[], ignoreMinSize: number): Promise<Comments> {
+async function readFile(
+  filepath: string,
+  tags: EnhancedTag[],
+  ignoreMinSize: number
+): Promise<Comments> {
   const comments: Comments = {};
   const stream = createReadStream(filepath, 'utf-8');
   const rl = createInterface({
@@ -38,7 +48,7 @@ async function readFile(filepath: string, tags: EnhancedTag[], ignoreMinSize: nu
   for await (const line of rl) {
     if (ignoreMinSize > line.length) continue;
 
-    for (let { tag, regex } of tags) {
+    for (const { tag, regex } of tags) {
       const matched = line.match(regex);
 
       if (!matched) continue;

@@ -6,5 +6,4 @@ const customTags = getInput('tags').split(',');
 
 console.log(tags, customTags);
 
-
 executor(customTags || tags);
