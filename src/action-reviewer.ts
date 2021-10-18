@@ -19,29 +19,28 @@ export class ActionReviewer {
 
     if (oldReviewBody === body) return;
 
-    if (id) {
-      await this.deleteReview(id);
-    }
+    // if (id) {
+    //   await this.deleteReview(id);
+    // }
 
     await this.octokit.rest.pulls.createReview({
       owner: this.owner,
       repo: this.repo,
       pull_number: this.prNumber,
-      event: block ? 'REQUEST_CHANGES' : 'COMMENT',
       body
     });
 
     return;
   }
 
-  public async deleteReview(id: number) {
-    return this.octokit.rest.pulls.deletePendingReview({
-      owner: this.owner,
-      repo: this.repo,
-      review_id: id,
-      pull_number: this.prNumber
-    });
-  }
+  // public async deleteReview(id: number) {
+  //   return this.octokit.rest.pulls.deleteReview({
+  //     owner: this.owner,
+  //     repo: this.repo,
+  //     comment_id: id,
+  //     pull_number: this.prNumber
+  //   });
+  // }
 
   private async reviewExists(): Promise<{ id?: number; body?: string }> {
     const { data: allReviews } = await this.octokit.rest.pulls.listReviews({
