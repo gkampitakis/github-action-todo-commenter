@@ -18,6 +18,8 @@ export async function fileAnalyzer(
     const absolutePath = path.join(process.cwd(), filePath);
     const comments = await readFile(absolutePath, enhancedTags, ignoreMinSize);
 
+    if (Object.values(comments).length === 0) continue;
+
     result.push({
       file: filePath,
       comments

@@ -2,16 +2,16 @@ name: 'github-action-todo-commenter'
 description: tbd
 
 inputs:
-  repo-token:
+  github-token:
     required: true
-    description: tbd
+    description: 
   review-message:
     required: false
     description: tbd
-  block-pr:
+  tags:
     required: false
     description: tbd
-  tags:
+  ignore-pattern:
     required: false
     description: tbd
 

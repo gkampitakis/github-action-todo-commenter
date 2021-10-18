@@ -19,3 +19,5 @@ Array [
   },
 ]
 `;
+
+exports[`FileAnalyzer should skip files with no matches 1`] = `Array []`;

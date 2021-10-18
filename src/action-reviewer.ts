@@ -1,8 +1,7 @@
-import { getOctokit } from '@actions/github';
-import { ActionReviewerConstructor } from './types';
+import { ActionReviewerConstructor, Octokit } from './types';
 
 export class ActionReviewer {
-  private octokit: ReturnType<typeof getOctokit>;
+  private octokit: Octokit;
   private owner: string;
   private repo: string;
   private prNumber: number;
@@ -16,8 +15,6 @@ export class ActionReviewer {
 
   public async createReview(body: string) {
     const { id, body: oldReviewBody } = await this.reviewExists();
-
-    console.log(oldReviewBody === body, body, oldReviewBody, id);
 
     if (oldReviewBody === body) return;
 
@@ -43,7 +40,7 @@ export class ActionReviewer {
     });
   }
 
-  private async reviewExists(): Promise<{ id?: number; body?: string }> {
+  public async reviewExists(): Promise<{ id?: number; body?: string }> {
     const { data: allReviews } = await this.octokit.rest.issues.listComments({
       owner: this.owner,
       repo: this.repo,

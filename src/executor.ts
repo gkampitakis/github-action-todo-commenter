@@ -1,38 +1,43 @@
 import { context, getOctokit } from '@actions/github';
-import { getInput, setFailed } from '@actions/core';
+import { getInput, setFailed, info } from '@actions/core';
 import { fileAnalyzer } from './file-analyzer';
 import { formatComment } from './format-comment';
 import { ActionReviewer } from './action-reviewer';
 import { Context } from '@actions/github/lib/context';
 import { Octokit } from './types';
 
-const mocks = [
-  {
-    comments: {
-      'FIXME:': [':Etess'],
-      NOTE: ["Please don't forget review", 'another note'],
-      'tODo:': ['this should present']
-    },
-    file: './moreChanges.js'
-  }
-];
-
 export async function run() {
   try {
-    const { blockPr, tags, reviewMsg, token } = getInputs();
+    const { tags, reviewMsg, token, ignoreFilesPattern } = getInputs();
     const { actor, owner, prNumber, repo } = getActionParameters(context);
     const octokit = getOctokit(token);
 
-    // const files = await getFiles({ octokit, repo, owner, prNumber });
-    // const analyzedComments = await fileAnalyzer(files, tags);
-    const comment = formatComment(mocks, { actor, reviewMsg });
-
+    const files = await getFiles({
+      octokit,
+      repo,
+      owner,
+      prNumber,
+      ignoreFilesPattern
+    });
+    const analyzedComments = await fileAnalyzer(files, tags);
     const actionReviewer = new ActionReviewer({
       owner,
       repo,
       octokit,
       prNumber
     });
+
+    if (analyzedComments.length === 0) {
+      const { id } = await actionReviewer.reviewExists();
+      if (id) {
+        await actionReviewer.deleteReview(id);
+      }
+
+      info('No tags found in pr 👀');
+      return;
+    }
+
+    const comment = formatComment(analyzedComments, { actor, reviewMsg });
 
     await actionReviewer.createReview(comment);
   } catch (error: any) {
@@ -41,25 +46,25 @@ export async function run() {
 }
 
 function getInputs(): {
-  blockPr: boolean;
   token: string;
   reviewMsg: string;
+  ignoreFilesPattern: string;
   tags: string[];
 } {
   const tags = getInput('tags') || 'TODO:,FIXME:,BUG:';
   const reviewMsg = getInput('review-msg');
-  const blockPr = getInput('block-pr') ?? 'false';
-  const token = getInput('repo-token') || process.env.GITHUB_TOKEN || '';
+  const ignoreFilesPattern = getInput('ignore-pattern');
+  const token = getInput('github-token') || process.env.GITHUB_TOKEN || '';
 
   if (token === '') {
     throw new Error(`Action needs 'GITHUB_TOKEN' in order to work correctly`);
   }
 
   return {
-    blockPr: blockPr === 'true',
     tags: tags.split(','),
     reviewMsg,
-    token
+    token,
+    ignoreFilesPattern
   };
 }
 
@@ -96,12 +101,14 @@ async function getFiles({
   octokit,
   owner,
   repo,
-  prNumber
+  prNumber,
+  ignoreFilesPattern
 }: {
   octokit: Octokit;
   owner: string;
   repo: string;
   prNumber: number;
+  ignoreFilesPattern: string;
 }): Promise<string[]> {
   const { data: prFiles } = await octokit.rest.pulls.listFiles({
     owner,
@@ -109,8 +116,14 @@ async function getFiles({
     pull_number: prNumber
   });
   const untracked = ['removed', 'unchanged'];
+  let matcher = (file: typeof prFiles[number]) =>
+    !untracked.includes(file.status);
 
-  return prFiles
-    .filter(prFile => !untracked.includes(prFile.status))
-    .map(f => f.filename);
+  if (ignoreFilesPattern) {
+    const regex = new RegExp(ignoreFilesPattern);
+    matcher = (file: typeof prFiles[number]) =>
+      !untracked.includes(file.status) && !file.filename.match(regex);
+  }
+
+  return prFiles.filter(matcher).map(f => f.filename);
 }

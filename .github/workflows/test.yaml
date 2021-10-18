@@ -10,4 +10,5 @@ jobs:
       - name: test action locally
         uses: gkampitakis/github-action-todo-commenter@test2
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }} #FIXME:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          ignore-pattern: '.js$|.snap$'
