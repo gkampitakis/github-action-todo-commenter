@@ -13,7 +13,7 @@ const mocks = [
       NOTE: ["Please don't forget review", 'another note'],
       'tODo:': ['this should present']
     },
-    file: './tests/mockFiles/mockFile0.js'
+    file: './moreChanges.js'
   }
 ];
 
@@ -34,7 +34,7 @@ export async function run() {
       prNumber
     });
 
-    await actionReviewer.createReview(comment, blockPr);
+    await actionReviewer.createReview(comment);
   } catch (error: any) {
     setFailed(error.message);
   }

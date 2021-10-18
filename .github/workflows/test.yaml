@@ -8,6 +8,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: test action locally
-        uses: gkampitakis/github-action-todo-commenter@test
+        uses: gkampitakis/github-action-todo-commenter@test2
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }} #FIXME:
