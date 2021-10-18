@@ -1,50 +1,37 @@
-import { context } from '@actions/github';
+import { context, getOctokit } from '@actions/github';
 import { getInput, setFailed } from '@actions/core';
 import { fileAnalyzer } from './file-analyzer';
 import { formatComment } from './format-comment';
-import { createComment } from './create-comment';
+import { ActionReviewer } from './action-reviewer';
 import { Context } from '@actions/github/lib/context';
-
-const mock = [
-  {
-    comments: {
-      'FIXME:': [':add implementation'],
-      NOTE: ["Please don't forget review", 'another note'],
-      'tODo:': ['this should present']
-    },
-    file: './tests/mockFiles/mockFile0.js'
-  },
-  {
-    comments: {
-      'FIXME:': [':add implementation'],
-      NOTE: ["Please don't forget review", 'another note'],
-      'tODo:': ['this should present']
-    },
-    file: './tests/mockFiles/mockFile1.js'
-  }
-];
+import { Octokit } from './types';
 
 export async function run() {
   try {
     const { blockPr, tags, reviewMsg, token } = getInputs();
     const { actor, owner, prNumber, repo } = getActionParameters(context);
+    const octokit = getOctokit(token);
 
-    console.log(blockPr, tags, reviewMsg, token);
-    console.log(actor, owner, prNumber, repo);
+    const files = await getFiles({ octokit, repo, owner, prNumber });
 
-    // const analyzedComments = await fileAnalyzer([], tags); // TODO: here we need the files that we need to check
-    const comment = formatComment(mock, { actor, reviewMsg });
+    console.log(files);
 
-    await createComment(
-      {
-        repo,
-        prNumber,
-        owner,
-        token
-      },
-      comment,
-      blockPr
-    );
+    const analyzedComments = await fileAnalyzer(files, tags);
+
+    console.log(analyzedComments);
+
+    const comment = formatComment(analyzedComments, { actor, reviewMsg });
+
+    const actionReviewer = new ActionReviewer({
+      owner,
+      repo,
+      octokit,
+      prNumber
+    });
+
+    // TODO: here we are going to remove comments if analyzedComments returns empty
+
+    await actionReviewer.createReview(comment, blockPr);
   } catch (error: any) {
     setFailed(error.message);
   }
@@ -56,7 +43,7 @@ function getInputs(): {
   reviewMsg: string;
   tags: string[];
 } {
-  const tags = getInput('tags').split(',') || ['TODO:', 'FIXME:', 'BUG:'];
+  const tags = getInput('tags') || 'TODO:,FIXME:,BUG:';
   const reviewMsg = getInput('review-msg');
   const blockPr = getInput('block-pr') ?? 'false';
   const token = getInput('repo-token') || process.env.GITHUB_TOKEN || '';
@@ -67,7 +54,7 @@ function getInputs(): {
 
   return {
     blockPr: blockPr === 'true',
-    tags,
+    tags: tags.split(','),
     reviewMsg,
     token
   };
@@ -100,4 +87,27 @@ function getActionParameters(ctx: Context): {
     repo,
     prNumber: pull_request?.number
   };
+}
+
+async function getFiles({
+  octokit,
+  owner,
+  repo,
+  prNumber
+}: {
+  octokit: Octokit;
+  owner: string;
+  repo: string;
+  prNumber: number;
+}): Promise<string[]> {
+  const { data: prFiles } = await octokit.rest.pulls.listFiles({
+    owner,
+    repo,
+    pull_number: prNumber
+  });
+  const untracked = ['removed', 'unchanged'];
+
+  return prFiles
+    .filter(prFile => !untracked.includes(prFile.status))
+    .map(f => f.filename);
 }

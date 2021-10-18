@@ -1,12 +1,12 @@
-import { FileAnalyzerResults } from './file-analyzer';
+import { FileAnalyzerResults } from './types';
 
 export function formatComment(
-  analyzedComments: FileAnalyzerResults,
+  analyzedCommentsPerFile: FileAnalyzerResults,
   { actor, reviewMsg }: { actor?: string; reviewMsg?: string }
 ) {
   let message = '## Todo Commenter\n';
 
-  analyzedComments.forEach(({ comments, file }) => {
+  analyzedCommentsPerFile.forEach(({ comments, file }) => {
     message += `<details>\n`;
     message += `<summary><strong>${file}</strong></summary>\n`;
 

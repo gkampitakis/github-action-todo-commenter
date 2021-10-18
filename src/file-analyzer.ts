@@ -1,13 +1,7 @@
 import { createReadStream } from 'fs';
 import { createInterface } from 'readline';
 import path from 'path';
-
-export type FileAnalyzerResults = {
-  file: string;
-  comments: Comments;
-}[];
-type Comments = Record<string, string[]>;
-type EnhancedTag = { tag: string; regex: RegExp };
+import { Comments, EnhancedTag, FileAnalyzerResults } from './types';
 
 export async function fileAnalyzer(
   filePaths: string[],
