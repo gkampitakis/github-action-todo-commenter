@@ -17,11 +17,13 @@ export class ActionReviewer {
   public async createReview(body: string, block: boolean) {
     const { id, body: oldReviewBody } = await this.reviewExists();
 
+    console.log(oldReviewBody, body, oldReviewBody === body, id);
+
     if (oldReviewBody === body) return;
 
-    // if (id) {
-    //   await this.deleteReview(id);
-    // }
+    if (id) {
+      await this.deleteReview(id);
+    }
 
     await this.octokit.rest.pulls.createReview({
       owner: this.owner,
@@ -33,14 +35,14 @@ export class ActionReviewer {
     return;
   }
 
-  // public async deleteReview(id: number) {
-  //   return this.octokit.rest.pulls.deleteReview({
-  //     owner: this.owner,
-  //     repo: this.repo,
-  //     comment_id: id,
-  //     pull_number: this.prNumber
-  //   });
-  // }
+  public async deleteReview(id: number) {
+    return this.octokit.rest.pulls.deletePendingReview({
+      owner: this.owner,
+      repo: this.repo,
+      review_id: id,
+      pull_number: this.prNumber
+    });
+  }
 
   private async reviewExists(): Promise<{ id?: number; body?: string }> {
     const { data: allReviews } = await this.octokit.rest.pulls.listReviews({

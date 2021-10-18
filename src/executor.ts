@@ -6,21 +6,26 @@ import { ActionReviewer } from './action-reviewer';
 import { Context } from '@actions/github/lib/context';
 import { Octokit } from './types';
 
+const mocks = [
+  {
+    comments: {
+      'FIXME:': [':Etess'],
+      NOTE: ["Please don't forget review", 'another note'],
+      'tODo:': ['this should present']
+    },
+    file: './tests/mockFiles/mockFile0.js'
+  }
+];
+
 export async function run() {
   try {
     const { blockPr, tags, reviewMsg, token } = getInputs();
     const { actor, owner, prNumber, repo } = getActionParameters(context);
     const octokit = getOctokit(token);
 
-    const files = await getFiles({ octokit, repo, owner, prNumber });
-
-    console.log(files);
-
-    const analyzedComments = await fileAnalyzer(files, tags);
-
-    console.log(analyzedComments);
-
-    const comment = formatComment(analyzedComments, { actor, reviewMsg });
+    // const files = await getFiles({ octokit, repo, owner, prNumber });
+    // const analyzedComments = await fileAnalyzer(files, tags);
+    const comment = formatComment(mocks, { actor, reviewMsg });
 
     const actionReviewer = new ActionReviewer({
       owner,
@@ -28,8 +33,6 @@ export async function run() {
       octokit,
       prNumber
     });
-
-    // TODO: here we are going to remove comments if analyzedComments returns empty
 
     await actionReviewer.createReview(comment, blockPr);
   } catch (error: any) {
