@@ -1,11 +1,13 @@
 import { formatComment } from '../src/format-comment';
+import { FileAnalyzerResults } from 'src/types';
 
-const analyzedComments = [
+const analyzedComments: FileAnalyzerResults = [
   {
     comments: {
       'FIXME:': [':add implementation'],
       NOTE: ["Please don't forget review", 'another note'],
-      'tODo:': ['this should present']
+      'tODo:': ['this should present'],
+      missingBody: ['']
     },
     file: './tests/mockFiles/mockFile0.js'
   },
