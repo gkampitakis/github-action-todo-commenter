@@ -17,6 +17,10 @@ exports[`FormatComment should format comment consistently 1`] = `
 ##### tODo:
 
 - [ ] this should present
+
+##### missingBody
+
+- [ ] <space>
 </details>
 
 <details>
@@ -56,6 +60,10 @@ exports[`FormatComment should tag actor with reviewMsg 1`] = `
 ##### tODo:
 
 - [ ] this should present
+
+##### missingBody
+
+- [ ] <space>
 </details>
 
 <details>

@@ -14,6 +14,10 @@ export function formatComment(
       message += `\n##### ${key}\n\n`;
 
       items.forEach(item => {
+        if (item === '') {
+          message += `- [ ] <space>\n`;
+          return;
+        }
         message += `- [ ] ${item}\n`;
       });
     });
