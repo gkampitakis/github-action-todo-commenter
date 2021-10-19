@@ -1,6 +1,6 @@
 {
   "name": "github-action-todo-commenter",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "lib/index.js",
   "repository": "https://github.com/gkampitakis/github-action-todo-commenter",
   "author": "gkampitakis",
@@ -9,7 +9,7 @@
   "scripts": {
     "prepare": "husky install",
     "tsc": "tsc",
-    "bundle": "npm run format-check && npm run lint && (npm run test || true)  && tsc && ncc build ./dist/index.js -m -o ./lib",
+    "bundle": "npm run format-check && npm run lint && npm run test  && tsc && ncc build ./dist/index.js -m -o ./lib",
     "test": " jest",
     "format": "prettier --write '**/*.ts'",
     "format-check": "prettier --check '**/*.ts'",
@@ -55,7 +55,9 @@
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.ts$",
     "collectCoverageFrom": [
       "src/**/*.ts",
-      "!src/**/index.ts"
+      "!src/**/index.ts",
+      "!src/**/executor.ts",
+      "!src/**/*.d.ts"
     ],
     "coverageThreshold": {
       "global": {
