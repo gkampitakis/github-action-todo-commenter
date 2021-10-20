@@ -15,13 +15,13 @@ inputs:
   review-message:
     required: false
     description: > 
-    You can specify a message at the end of the comment.
-    It will tag the creator of pull request
+      You can specify a message at the end of the comment.
+      It will tag the creator of pull request
   tags:
     required: false
     description: > 
-    Keywords that the parser will try to identify for creating comments.
-    Default tags are TODO:,FIXME:,BUG:
+      Keywords that the parser will try to identify for creating comments.
+      Default tags are TODO:,FIXME:,BUG:
   ignore-pattern:
     required: false
     description: Regex used for filtering files out from parsing.
