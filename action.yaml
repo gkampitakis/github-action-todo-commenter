@@ -1,25 +1,27 @@
 name: 'github-action-todo-commenter'
-description: tbd
-
-inputs:
-  github-token:
-    required: true
-    description: 
-  review-message:
-    required: false
-    description: tbd
-  tags:
-    required: false
-    description: tbd
-  ignore-pattern:
-    required: false
-    description: tbd
-
-# FIXME:
-
+description: Parses pull request files based on tags and creates a comment with a task list
+author: Georgios Kampitakis
 runs:
   using: 'node12'
   main: 'lib/index.js'
 branding:
   icon: 'check-circle'
   color: 'green'
+
+inputs:
+  github-token:
+    required: true
+    description: Github Token for Github API requests.
+  review-message:
+    required: false
+    description: > 
+    You can specify a message at the end of the comment.
+    It will tag the creator of pull request
+  tags:
+    required: false
+    description: > 
+    Keywords that the parser will try to identify for creating comments.
+    Default tags are TODO:,FIXME:,BUG:
+  ignore-pattern:
+    required: false
+    description: Regex used for filtering files out from parsing.
