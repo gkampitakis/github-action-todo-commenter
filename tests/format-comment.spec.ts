@@ -1,21 +1,27 @@
 import { formatComment } from '../src/format-comment';
-import { FileAnalyzerResults } from 'src/types';
+import { FileAnalyzerResults } from '../src/types';
 
 const analyzedComments: FileAnalyzerResults = [
   {
     comments: {
-      'FIXME:': [':add implementation'],
-      NOTE: ["Please don't forget review", 'another note'],
-      'tODo:': ['this should present'],
-      missingBody: ['']
+      'FIXME:': [{ comment: ':add implementation', line: 10 }],
+      NOTE: [
+        { comment: "Please don't forget review", line: 11 },
+        { comment: 'another note', line: 20 }
+      ],
+      'tODo:': [{ comment: 'this should present', line: 13 }],
+      missingBody: [{ comment: '', line: 1 }]
     },
     file: './tests/mockFiles/mockFile0.js'
   },
   {
     comments: {
-      'FIXME:': [':add implementation'],
-      NOTE: ["Please don't forget review", 'another note'],
-      'tODo:': ['this should present']
+      'FIXME:': [{ comment: ':add implementation', line: 20 }],
+      NOTE: [
+        { comment: "Please don't forget review", line: 21 },
+        { comment: 'another note', line: 2 }
+      ],
+      'tODo:': [{ comment: 'this should present', line: 5 }]
     },
     file: './tests/mockFiles/mockFile2.js'
   }

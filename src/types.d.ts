@@ -1,7 +1,13 @@
 import { getOctokit } from '@actions/github';
 
 export type Octokit = ReturnType<typeof getOctokit>;
-export type Comments = Record<string, string[]>;
+export type Comments = Record<
+  string,
+  {
+    comment: string;
+    line: number;
+  }[]
+>;
 export type EnhancedTag = { tag: string; regex: RegExp };
 
 export type ActionReviewerConstructor = {

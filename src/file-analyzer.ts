@@ -34,6 +34,7 @@ async function readFile(
   tags: EnhancedTag[],
   ignoreMinSize: number
 ): Promise<Comments> {
+  let lineCounter = 0;
   const comments: Comments = {};
   const stream = createReadStream(filepath, 'utf-8');
   const rl = createInterface({
@@ -42,6 +43,7 @@ async function readFile(
   });
 
   for await (const line of rl) {
+    lineCounter++;
     if (ignoreMinSize > line.length) continue;
 
     for (const { tag, regex } of tags) {
@@ -52,11 +54,19 @@ async function readFile(
       const comment = matched[1].trim();
 
       if (comments[tag]) {
-        comments[tag].push(comment);
+        comments[tag].push({
+          comment,
+          line: lineCounter
+        });
         continue;
       }
 
-      comments[tag] = [comment];
+      comments[tag] = [
+        {
+          comment,
+          line: lineCounter
+        }
+      ];
     }
   }
 

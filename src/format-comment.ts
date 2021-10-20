@@ -14,11 +14,11 @@ export function formatComment(
       message += `\n##### ${key}\n\n`;
 
       items.forEach(item => {
-        if (item === '') {
-          message += `- [ ] <space>\n`;
+        if (item.comment === '') {
+          message += `- [ ] <space> \`Line: ${item.line}\`\n`;
           return;
         }
-        message += `- [ ] ${item}\n`;
+        message += `- [ ] ${item.comment} \`Line: ${item.line}\` \n`;
       });
     });
 
