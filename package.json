@@ -6,6 +6,7 @@
   "author": "gkampitakis",
   "license": "MIT",
   "private": false,
+  "description": "Parses pull request files based on tags and creates a comment with a task list",
   "scripts": {
     "prepare": "husky install",
     "tsc": "tsc",

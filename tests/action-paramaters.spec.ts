@@ -65,7 +65,7 @@ describe('getInputs', () => {
     mockInputs = {
       'github-token': 'mock-token',
       tags: 'test:,data:,more',
-      'review-msg': 'hello world',
+      'review-message': 'hello world',
       'ignore-pattern': 'mock-pattern'
     };
     const inputs = getInputs();

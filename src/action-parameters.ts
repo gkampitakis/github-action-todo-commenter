@@ -8,7 +8,7 @@ export function getInputs(): {
   tags: string[];
 } {
   const tags = getInput('tags') || 'TODO:,FIXME:,BUG:';
-  const reviewMsg = getInput('review-msg');
+  const reviewMsg = getInput('review-message');
   const ignoreFilesPattern = getInput('ignore-pattern');
   const token = getInput('github-token') || '';
 
