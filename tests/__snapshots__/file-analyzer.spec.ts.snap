@@ -5,14 +5,26 @@ Array [
   Object {
     "comments": Object {
       "FIXME:": Array [
-        ":add implementation",
+        Object {
+          "comment": ":add implementation",
+          "line": 6,
+        },
       ],
       "NOTE": Array [
-        "Please don't forget review",
-        "another note",
+        Object {
+          "comment": "Please don't forget review",
+          "line": 10,
+        },
+        Object {
+          "comment": "another note",
+          "line": 11,
+        },
       ],
       "tODo:": Array [
-        "this should present",
+        Object {
+          "comment": "this should present",
+          "line": 9,
+        },
       ],
     },
     "file": "./tests/mockFiles/mockFile0.js",

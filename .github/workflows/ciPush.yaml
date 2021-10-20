@@ -10,7 +10,6 @@ on:
 
 jobs:
   test:
-    test:
     name: Run Tests
     runs-on: ubuntu-latest
     steps:
@@ -32,11 +31,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '12'
+          node-version: '14'
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: yarn bundle
-        run: HUSKY=0 npx semantic-release
+        run: yarn bundle && HUSKY=0 npx semantic-release

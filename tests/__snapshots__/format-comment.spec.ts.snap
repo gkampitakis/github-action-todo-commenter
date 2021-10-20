@@ -7,20 +7,20 @@ exports[`FormatComment should format comment consistently 1`] = `
 
 ##### FIXME:
 
-- [ ] :add implementation
+- [ ] :add implementation \`Line: 10\` 
 
 ##### NOTE
 
-- [ ] Please don't forget review
-- [ ] another note
+- [ ] Please don't forget review \`Line: 11\` 
+- [ ] another note \`Line: 20\` 
 
 ##### tODo:
 
-- [ ] this should present
+- [ ] this should present \`Line: 13\` 
 
 ##### missingBody
 
-- [ ] <space>
+- [ ] <space> \`Line: 1\`
 </details>
 
 <details>
@@ -28,16 +28,16 @@ exports[`FormatComment should format comment consistently 1`] = `
 
 ##### FIXME:
 
-- [ ] :add implementation
+- [ ] :add implementation \`Line: 20\` 
 
 ##### NOTE
 
-- [ ] Please don't forget review
-- [ ] another note
+- [ ] Please don't forget review \`Line: 21\` 
+- [ ] another note \`Line: 2\` 
 
 ##### tODo:
 
-- [ ] this should present
+- [ ] this should present \`Line: 5\` 
 </details>
 
 "
@@ -50,20 +50,20 @@ exports[`FormatComment should tag actor with reviewMsg 1`] = `
 
 ##### FIXME:
 
-- [ ] :add implementation
+- [ ] :add implementation \`Line: 10\` 
 
 ##### NOTE
 
-- [ ] Please don't forget review
-- [ ] another note
+- [ ] Please don't forget review \`Line: 11\` 
+- [ ] another note \`Line: 20\` 
 
 ##### tODo:
 
-- [ ] this should present
+- [ ] this should present \`Line: 13\` 
 
 ##### missingBody
 
-- [ ] <space>
+- [ ] <space> \`Line: 1\`
 </details>
 
 <details>
@@ -71,16 +71,16 @@ exports[`FormatComment should tag actor with reviewMsg 1`] = `
 
 ##### FIXME:
 
-- [ ] :add implementation
+- [ ] :add implementation \`Line: 20\` 
 
 ##### NOTE
 
-- [ ] Please don't forget review
-- [ ] another note
+- [ ] Please don't forget review \`Line: 21\` 
+- [ ] another note \`Line: 2\` 
 
 ##### tODo:
 
-- [ ] this should present
+- [ ] this should present \`Line: 5\` 
 </details>
 
 ---
