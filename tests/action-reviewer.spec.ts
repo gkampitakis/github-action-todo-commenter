@@ -23,10 +23,13 @@ const mockOctokit = {
 const owner = 'mock-owner';
 const repo = 'mock-repo';
 const prNumber = 10;
+const commitId = '1234567';
+const commentIdentifier = '<!-- mock-comment-identifier -->';
 
 describe('ActionReviewer', () => {
-  const actionReviewer = new ActionReviewer({
-    octokit: mockOctokit,
+  const actionReviewer = new ActionReviewer(mockOctokit, {
+    commentIdentifier,
+    commitId,
     owner,
     repo,
     prNumber
@@ -62,7 +65,8 @@ describe('ActionReviewer', () => {
         user: {
           login: 'github-actions[bot]'
         },
-        body: '## Todo Commenter\n',
+        body: `${commentIdentifier}
+## Todo Commenter\n`,
         id: prNumber
       }
     ];
@@ -98,7 +102,8 @@ describe('ActionReviewer', () => {
         user: {
           login: 'github-actions[bot]'
         },
-        body: '## Todo Commenter\n',
+        body: `${commentIdentifier}
+## Todo Commenter\n`,
         id: prNumber
       }
     ];

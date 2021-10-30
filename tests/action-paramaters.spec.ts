@@ -66,7 +66,9 @@ describe('getInputs', () => {
       'github-token': 'mock-token',
       tags: 'test:,data:,more',
       'review-message': 'hello world',
-      'ignore-pattern': 'mock-pattern'
+      'ignore-pattern': 'mock-pattern',
+      'multiline-comment': 'false',
+      'comment-title': 'my title'
     };
     const inputs = getInputs();
 
@@ -74,7 +76,9 @@ describe('getInputs', () => {
       token: 'mock-token',
       tags: ['test:', 'data:', 'more'],
       reviewMsg: 'hello world',
-      ignoreFilesPattern: 'mock-pattern'
+      ignoreFilesPattern: 'mock-pattern',
+      multiLineCommentMode: false,
+      commentTitle: 'my title'
     });
   });
 

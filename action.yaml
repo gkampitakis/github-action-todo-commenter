@@ -14,14 +14,21 @@ inputs:
     description: Github Token for Github API requests.
   review-message:
     required: false
-    description: > 
-      You can specify a message at the end of the comment.
+    description: >
+      [String] You can specify a message at the end of the comment.
       It will tag the creator of pull request
   tags:
     required: false
-    description: > 
-      Keywords that the parser will try to identify for creating comments.
+    description: >
+      [String comma separated] Keywords that the parser will try to identify for creating comments.
       Default tags are TODO:,FIXME:,BUG:
   ignore-pattern:
     required: false
-    description: Regex used for filtering files out from parsing.
+    description: '[Regex] Regex used for filtering files out from parsing.'
+  multiline-comment:
+    required: false
+    description: '[Boolean] if true the action will create one comment per line instead of one comment'
+  comment-title:
+    required: false
+    description:  >
+      [String] If the action is in single-comment mode you can specify a title.

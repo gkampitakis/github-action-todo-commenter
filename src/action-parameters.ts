@@ -1,16 +1,14 @@
 import { getInput } from '@actions/core';
 import { Context } from '@actions/github/lib/context';
+import { GetActionParams, GetInputsParams } from './types';
 
-export function getInputs(): {
-  token: string;
-  reviewMsg: string;
-  ignoreFilesPattern: string;
-  tags: string[];
-} {
+export function getInputs(): GetInputsParams {
   const tags = getInput('tags') || 'TODO:,FIXME:,BUG:';
   const reviewMsg = getInput('review-message');
   const ignoreFilesPattern = getInput('ignore-pattern');
   const token = getInput('github-token') || '';
+  const multiLineCommentMode = getInput('multiline-comment') === 'true';
+  const commentTitle = getInput('comment-title') || 'Todo Commenter';
 
   if (token === '') {
     throw new Error(`Action needs 'GITHUB_TOKEN' in order to work correctly`);
@@ -20,21 +18,18 @@ export function getInputs(): {
     tags: tags.split(','),
     reviewMsg,
     token,
-    ignoreFilesPattern
+    ignoreFilesPattern,
+    multiLineCommentMode,
+    commentTitle
   };
 }
 
-export function getActionParameters(ctx: Context): {
-  actor: string;
-  owner: string;
-  repo: string;
-  prNumber: number;
-} {
+export function getActionParameters(ctx: Context): GetActionParams {
   const {
     actor,
     repo: { owner, repo },
     eventName,
-    payload: { pull_request }
+    payload: { pull_request, after }
   } = ctx;
 
   if (eventName !== 'pull_request') {
@@ -49,6 +44,7 @@ export function getActionParameters(ctx: Context): {
     actor,
     owner,
     repo,
+    commitId: after,
     prNumber: pull_request?.number
   };
 }

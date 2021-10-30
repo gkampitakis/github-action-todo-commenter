@@ -27,15 +27,22 @@ const analyzedComments: FileAnalyzerResults = [
   }
 ];
 
+const mockIdentifier = '<!-- mock-comment-identifier -->';
+
 describe('FormatComment', () => {
   it('should format comment consistently', () => {
-    const comment = formatComment(analyzedComments, {});
+    const comment = formatComment(analyzedComments, {
+      identifier: mockIdentifier,
+      title: 'mock title'
+    });
 
     expect(comment).toMatchSnapshot();
   });
 
   it('should tag actor with reviewMsg', () => {
     const comment = formatComment(analyzedComments, {
+      identifier: mockIdentifier,
+      title: 'mock-title',
       actor: 'mock-actor',
       reviewMsg: 'please review'
     });
