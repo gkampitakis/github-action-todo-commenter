@@ -47,7 +47,7 @@ export class ActionReviewer {
       line
     });
   }
-// test
+
   public async deleteReview(id: number) {
     return this.octokit.rest.issues.deleteComment({
       owner: this.options.owner,

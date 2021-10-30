@@ -93,6 +93,8 @@ async function multilineComment(
         .singleCommentReview(comment, { line, path: file })
         .catch(error => {
           console.log(error);
+          console.log(file, line);
+
           warning(error);
         });
     });
