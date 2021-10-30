@@ -8,7 +8,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: test action locally
-        uses: gkampitakis/github-action-todo-commenter@feature/comment-per-line
+        uses: gkampitakis/github-action-todo-commenter@feature/comment-per-linev2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           ignore-pattern: '.js$|.snap$|.yaml$'

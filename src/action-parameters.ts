@@ -32,6 +32,8 @@ export function getActionParameters(ctx: Context): GetActionParams {
     payload: { pull_request, after }
   } = ctx;
 
+  console.log(ctx);
+
   if (eventName !== 'pull_request') {
     throw new Error('Action only supports pull requests');
   }
