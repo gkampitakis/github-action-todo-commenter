@@ -7,6 +7,7 @@ export async function getFiles({
   prNumber,
   ignoreFilesPattern
 }: {
+  // FIXME: break into types and document what's happening here :scream:
   octokit: Octokit;
   owner: string;
   repo: string;

@@ -1,12 +1,12 @@
 import { context, getOctokit } from '@actions/github';
-import { setFailed, info } from '@actions/core';
+import { setFailed, info, warning } from '@actions/core';
 
 import { getActionParameters, getInputs } from './action-parameters';
 import { getFiles } from './pr-files';
 import { fileAnalyzer } from './file-analyzer';
 import { ActionReviewer } from './action-reviewer';
-import { formatComment } from './format-comment';
-import { SingleCommentParams } from './types';
+import { formatMultilineComments, formatSingleComment } from './format-comment';
+import { MultiLineCommentParams, SingleCommentParams } from './types';
 
 const COMMENT_IDENTIFIER = '<!-- action-comment-identifier -->';
 
@@ -41,7 +41,11 @@ export async function run() {
     });
 
     if (multiLineCommentMode) {
-      await multilineComment(actionReviewer);
+      console.log(JSON.stringify(formatMultilineComments(analyzedComments)));
+
+      await multilineComment(actionReviewer, {
+        comments: formatMultilineComments(analyzedComments)
+      });
       return;
     }
 
@@ -70,7 +74,7 @@ async function singleComment(
     return;
   }
 
-  const comment = formatComment(comments, {
+  const comment = formatSingleComment(comments, {
     actor,
     reviewMsg,
     title,
@@ -79,6 +83,21 @@ async function singleComment(
   await actionReviewer.createReview(comment);
 }
 
-async function multilineComment(actionReviewer: ActionReviewer) {
-  console.log('TBI');
+async function multilineComment(
+  actionReviewer: ActionReviewer,
+  { comments: files }: MultiLineCommentParams
+) {
+  files.forEach(({ comments, file }) => {
+    comments.forEach(({ comment, line }) => {
+      actionReviewer
+        .singleCommentReview(comment, { line, path: file })
+        .catch(error => {
+          console.log(error);
+          warning(error);
+        });
+    });
+  });
 }
+
+// handle if out of diff, write it in doc and suppress warning
+// TODO: what happens if comment already exists ?

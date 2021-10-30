@@ -107,7 +107,7 @@ describe('ActionReviewer', () => {
         id: prNumber
       }
     ];
-    await actionReviewer.createReview('## Todo Commenter\n');
+    await actionReviewer.createReview(mockData[2].body);
 
     expect(listSpy).toHaveBeenCalledWith({
       owner,

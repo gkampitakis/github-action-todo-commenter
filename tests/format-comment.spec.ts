@@ -1,4 +1,7 @@
-import { formatComment } from '../src/format-comment';
+import {
+  formatMultilineComments,
+  formatSingleComment
+} from '../src/format-comment';
 import { FileAnalyzerResults } from '../src/types';
 
 const analyzedComments: FileAnalyzerResults = [
@@ -12,7 +15,7 @@ const analyzedComments: FileAnalyzerResults = [
       'tODo:': [{ comment: 'this should present', line: 13 }],
       missingBody: [{ comment: '', line: 1 }]
     },
-    file: './tests/mockFiles/mockFile0.js'
+    file: 'tests/mockFiles/mockFile0.js'
   },
   {
     comments: {
@@ -23,15 +26,15 @@ const analyzedComments: FileAnalyzerResults = [
       ],
       'tODo:': [{ comment: 'this should present', line: 5 }]
     },
-    file: './tests/mockFiles/mockFile2.js'
+    file: 'tests/mockFiles/mockFile2.js'
   }
 ];
 
 const mockIdentifier = '<!-- mock-comment-identifier -->';
 
-describe('FormatComment', () => {
+describe('FormatSingleComment', () => {
   it('should format comment consistently', () => {
-    const comment = formatComment(analyzedComments, {
+    const comment = formatSingleComment(analyzedComments, {
       identifier: mockIdentifier,
       title: 'mock title'
     });
@@ -40,7 +43,7 @@ describe('FormatComment', () => {
   });
 
   it('should tag actor with reviewMsg', () => {
-    const comment = formatComment(analyzedComments, {
+    const comment = formatSingleComment(analyzedComments, {
       identifier: mockIdentifier,
       title: 'mock-title',
       actor: 'mock-actor',
@@ -48,5 +51,11 @@ describe('FormatComment', () => {
     });
 
     expect(comment).toMatchSnapshot();
+  });
+});
+
+describe('FormatMultilineComments', () => {
+  it('should flatten comments and remove tags', () => {
+    expect(formatMultilineComments(analyzedComments)).toMatchSnapshot();
   });
 });

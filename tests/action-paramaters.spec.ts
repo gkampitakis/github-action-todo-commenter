@@ -67,7 +67,7 @@ describe('getInputs', () => {
       tags: 'test:,data:,more',
       'review-message': 'hello world',
       'ignore-pattern': 'mock-pattern',
-      'multiline-comment': 'false',
+      'multiline-comments': 'false',
       'comment-title': 'my title'
     };
     const inputs = getInputs();

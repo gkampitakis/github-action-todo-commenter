@@ -25,7 +25,7 @@ inputs:
   ignore-pattern:
     required: false
     description: '[Regex] Regex used for filtering files out from parsing.'
-  multiline-comment:
+  multiline-comments:
     required: false
     description: '[Boolean] if true the action will create one comment per line instead of one comment'
   comment-title:

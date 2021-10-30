@@ -1,3 +1,4 @@
+import { info } from '@actions/core';
 import { ActionReviewerOptions, Octokit } from './types';
 
 export class ActionReviewer {
@@ -12,7 +13,10 @@ export class ActionReviewer {
   public async createReview(body: string) {
     const { id, body: oldReviewBody } = await this.reviewExists();
 
-    if (oldReviewBody === body) return;
+    if (oldReviewBody === body) {
+      info('No new changes detected since ');
+      return;
+    }
 
     if (id) {
       await this.deleteReview(id);
@@ -28,19 +32,20 @@ export class ActionReviewer {
     return;
   }
 
-  public singleCommentReview(
+  public async singleCommentReview(
     body: string,
     { line, path }: { line: number; path: string }
   ) {
-    // await this.octokit.rest.pulls.createReviewComment({
-    //   body: 'Hello World v3',
-    //   owner: this.owner,
-    //   repo: this.repo,
-    //   pull_number: this.prNumber,
-    //   line: 7,
-    //   path: 'tests/mockFiles/mockFile1.js',
-    //   position: 7 //Is this needed ?
-    // });
+    return this.octokit.rest.pulls.createReviewComment({
+      owner: this.options.owner,
+      repo: this.options.repo,
+      pull_number: this.options.prNumber,
+      commit_id: this.options.commitId,
+      position: line,
+      body,
+      path,
+      line
+    });
   }
 
   public async deleteReview(id: number) {

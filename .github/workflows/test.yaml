@@ -1,0 +1,18 @@
+name: test
+on: [pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: test action locally
+        uses: gkampitakis/github-action-todo-commenter@feature/comment-per-line
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          ignore-pattern: '.js$|.snap$|.yaml$'
+          review-message: "Please take a look :eyes:"
+          comment-title: Parsed Lines
+          multiline-comments: true
+          tags: 'TODO:,FIXME:,BUG:,NOTE:'

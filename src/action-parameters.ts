@@ -7,7 +7,7 @@ export function getInputs(): GetInputsParams {
   const reviewMsg = getInput('review-message');
   const ignoreFilesPattern = getInput('ignore-pattern');
   const token = getInput('github-token') || '';
-  const multiLineCommentMode = getInput('multiline-comment') === 'true';
+  const multiLineCommentMode = getInput('multiline-comments') === 'true';
   const commentTitle = getInput('comment-title') || 'Todo Commenter';
 
   if (token === '') {

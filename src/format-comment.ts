@@ -1,6 +1,6 @@
 import { FileAnalyzerResults, FormatCommentOptions } from './types';
 
-export function formatComment(
+export function formatSingleComment(
   analyzedCommentsPerFile: FileAnalyzerResults,
   { actor, reviewMsg, title, identifier }: FormatCommentOptions
 ) {
@@ -33,3 +33,20 @@ export function formatComment(
 
   return message;
 }
+
+export function formatMultilineComments(
+  analyzedCommentsPerFile: FileAnalyzerResults
+) {
+  return analyzedCommentsPerFile.map(({ comments, file }) => ({
+    file,
+    comments: Object.entries(comments)
+      .map(([tag, elements]) =>
+        elements.map(({ comment, line }) => ({
+          comment: comment === '' ? tag : comment,
+          line
+        }))
+      )
+      .flat()
+  }));
+}
+// NOTE: could this be written better :thinking:

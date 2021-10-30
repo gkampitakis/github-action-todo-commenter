@@ -1,8 +1,9 @@
 import { getOctokit } from '@actions/github';
+import { formatMultilineComments } from './format-comment';
 
 export type Octokit = ReturnType<typeof getOctokit>;
 export type Comments = Record<
-  string,
+  string, // This is the tag
   {
     comment: string;
     line: number;
@@ -30,6 +31,10 @@ export type SingleCommentParams = {
   title: string;
 };
 
+export type MultiLineCommentParams = {
+  comments: ReturnType<typeof formatMultilineComments>; // TODO: explicitly write this type
+};
+
 export type GetInputsParams = {
   token: string;
   reviewMsg: string;
@@ -52,4 +57,12 @@ export type FormatCommentOptions = {
   reviewMsg?: string;
   title: string;
   identifier: string;
+};
+
+export type GHError = {
+  // TODO: implement it
+  resource: string;
+  code: string;
+  field: string;
+  message?: string;
 };

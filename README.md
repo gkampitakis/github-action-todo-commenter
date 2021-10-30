@@ -22,6 +22,7 @@ jobs:
           review-message: "Please take a look :eyes:"
 ```
 
+<!-- NOTE: add default values here and more info -->
 ## Example
 
 ![Example](./docs/example.png)
