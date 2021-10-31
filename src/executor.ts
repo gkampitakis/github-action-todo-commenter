@@ -91,6 +91,9 @@ async function multilineComment(
     comments.forEach(({ comment, line }) => {
       actionReviewer
         .singleCommentReview(comment, { line, path: file })
+        .then(res => {
+          console.log(JSON.stringify(res));
+        })
         .catch(error => {
           console.log(error);
           warning(error);
