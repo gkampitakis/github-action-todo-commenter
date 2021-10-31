@@ -29,7 +29,7 @@ export function getActionParameters(ctx: Context): GetActionParams {
     actor,
     repo: { owner, repo },
     eventName,
-    payload: { pull_request, after }
+    payload: { pull_request, after } // This looks buggy
   } = ctx;
 
   console.log(ctx);

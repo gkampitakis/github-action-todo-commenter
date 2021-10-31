@@ -87,17 +87,21 @@ async function multilineComment(
   actionReviewer: ActionReviewer,
   { comments: files }: MultiLineCommentParams
 ) {
+  const tmp: { body: string; line: number; path: string }[] = [];
+
   files.forEach(({ comments, file }) => {
     comments.forEach(({ comment, line }) => {
-      actionReviewer
-        .singleCommentReview(comment, { line, path: file })
-        .catch(error => {
-          console.log(error);
-          console.log(file, line);
-
-          warning(error);
-        });
+      tmp.push({
+        body: comment,
+        path: file,
+        line
+      });
     });
+  });
+
+  actionReviewer.singleCommentReview(tmp).catch(error => {
+    console.log(error);
+    warning(error);
   });
 }
 
