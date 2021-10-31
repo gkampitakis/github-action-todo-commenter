@@ -33,14 +33,17 @@ export class ActionReviewer {
   }
 
   public async singleCommentReview(
-    comments: { body: string; line: number; path: string }[]
+    body: string,
+    { line, path }: { line: number; path: string }
   ) {
-    return this.octokit.rest.pulls.createReview({
+    return this.octokit.rest.pulls.createReviewComment({
       owner: this.options.owner,
       repo: this.options.repo,
       pull_number: this.options.prNumber,
       commit_id: this.options.commitId,
-      comments: comments
+      body,
+      path,
+      line
     });
   }
 
