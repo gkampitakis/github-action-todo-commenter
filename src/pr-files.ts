@@ -1,4 +1,4 @@
-import { Octokit } from './types';
+import { GetFilesParams } from './types';
 
 export async function getFiles({
   octokit,
@@ -6,13 +6,7 @@ export async function getFiles({
   repo,
   prNumber,
   ignoreFilesPattern
-}: {
-  octokit: Octokit;
-  owner: string;
-  repo: string;
-  prNumber: number;
-  ignoreFilesPattern?: string;
-}): Promise<string[]> {
+}: GetFilesParams) {
   const { data: prFiles } = await octokit.rest.pulls.listFiles({
     owner,
     repo,

@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FormatComment should format comment consistently 1`] = `
-"## Todo Commenter
+"## mock title
 <details>
-<summary><strong>./tests/mockFiles/mockFile0.js</strong></summary>
+<summary><strong>tests/mockFiles/mockFile0.js</strong></summary>
 
 ##### FIXME:
 
@@ -24,7 +24,7 @@ exports[`FormatComment should format comment consistently 1`] = `
 </details>
 
 <details>
-<summary><strong>./tests/mockFiles/mockFile2.js</strong></summary>
+<summary><strong>tests/mockFiles/mockFile2.js</strong></summary>
 
 ##### FIXME:
 
@@ -44,9 +44,9 @@ exports[`FormatComment should format comment consistently 1`] = `
 `;
 
 exports[`FormatComment should tag actor with reviewMsg 1`] = `
-"## Todo Commenter
+"## mock title
 <details>
-<summary><strong>./tests/mockFiles/mockFile0.js</strong></summary>
+<summary><strong>tests/mockFiles/mockFile0.js</strong></summary>
 
 ##### FIXME:
 
@@ -67,7 +67,7 @@ exports[`FormatComment should tag actor with reviewMsg 1`] = `
 </details>
 
 <details>
-<summary><strong>./tests/mockFiles/mockFile2.js</strong></summary>
+<summary><strong>tests/mockFiles/mockFile2.js</strong></summary>
 
 ##### FIXME:
 

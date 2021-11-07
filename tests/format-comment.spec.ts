@@ -12,7 +12,7 @@ const analyzedComments: FileAnalyzerResults = [
       'tODo:': [{ comment: 'this should present', line: 13 }],
       missingBody: [{ comment: '', line: 1 }]
     },
-    file: './tests/mockFiles/mockFile0.js'
+    file: 'tests/mockFiles/mockFile0.js'
   },
   {
     comments: {
@@ -23,19 +23,22 @@ const analyzedComments: FileAnalyzerResults = [
       ],
       'tODo:': [{ comment: 'this should present', line: 5 }]
     },
-    file: './tests/mockFiles/mockFile2.js'
+    file: 'tests/mockFiles/mockFile2.js'
   }
 ];
 
 describe('FormatComment', () => {
   it('should format comment consistently', () => {
-    const comment = formatComment(analyzedComments, {});
+    const comment = formatComment(analyzedComments, {
+      title: 'mock title'
+    });
 
     expect(comment).toMatchSnapshot();
   });
 
   it('should tag actor with reviewMsg', () => {
     const comment = formatComment(analyzedComments, {
+      title: 'mock title',
       actor: 'mock-actor',
       reviewMsg: 'please review'
     });

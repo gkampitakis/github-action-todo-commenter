@@ -28,4 +28,6 @@ jobs:
 
 ---
 
-License MIT
+> For releasing and versioning the github action https://github.com/actions/toolkit/blob/master/docs/action-versioning.md#recommendations.
+
+**License MIT**

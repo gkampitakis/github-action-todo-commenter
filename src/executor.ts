@@ -9,7 +9,8 @@ import { formatComment } from './format-comment';
 
 export async function run() {
   try {
-    const { tags, reviewMsg, token, ignoreFilesPattern } = getInputs();
+    const { tags, reviewMsg, token, ignoreFilesPattern, commentTitle } =
+      getInputs();
     const { actor, owner, prNumber, repo } = getActionParameters(context);
     const octokit = getOctokit(token);
 
@@ -21,11 +22,11 @@ export async function run() {
       ignoreFilesPattern
     });
     const analyzedComments = await fileAnalyzer(files, tags);
-    const actionReviewer = new ActionReviewer({
+    const actionReviewer = new ActionReviewer(octokit, {
       owner,
       repo,
-      octokit,
-      prNumber
+      prNumber,
+      commentTitle
     });
 
     if (analyzedComments.length === 0) {
@@ -38,7 +39,11 @@ export async function run() {
       return;
     }
 
-    const comment = formatComment(analyzedComments, { actor, reviewMsg });
+    const comment = formatComment(analyzedComments, {
+      actor,
+      reviewMsg,
+      title: commentTitle
+    });
 
     await actionReviewer.createReview(comment);
   } catch (error: any) {
