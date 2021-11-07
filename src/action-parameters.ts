@@ -1,35 +1,25 @@
 import { getInput } from '@actions/core';
 import { Context } from '@actions/github/lib/context';
 
-export function getInputs(): {
-  token: string;
-  reviewMsg: string;
-  ignoreFilesPattern: string;
-  tags: string[];
-} {
+import { GetInputParams, GetActionParams } from './types';
+
+export function getInputs(): GetInputParams {
   const tags = getInput('tags') || 'TODO:,FIXME:,BUG:';
   const reviewMsg = getInput('review-message');
   const ignoreFilesPattern = getInput('ignore-pattern');
-  const token = getInput('github-token') || '';
-
-  if (token === '') {
-    throw new Error(`Action needs 'GITHUB_TOKEN' in order to work correctly`);
-  }
+  const token = getInput('github-token', { required: true });
+  const commentTitle = getInput('comment-title') || 'Todo Commenter';
 
   return {
     tags: tags.split(','),
     reviewMsg,
     token,
-    ignoreFilesPattern
+    ignoreFilesPattern,
+    commentTitle
   };
 }
 
-export function getActionParameters(ctx: Context): {
-  actor: string;
-  owner: string;
-  repo: string;
-  prNumber: number;
-} {
+export function getActionParameters(ctx: Context): GetActionParams {
   const {
     actor,
     repo: { owner, repo },

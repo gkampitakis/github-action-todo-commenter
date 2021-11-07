@@ -21,12 +21,7 @@ describe('getActionParameters', () => {
       }
     } as Context;
 
-    expect(getActionParameters(ctx)).toEqual({
-      actor: 'mock-actor',
-      owner: 'mock-owner',
-      repo: 'mock-repo',
-      prNumber: 10
-    });
+    expect(getActionParameters(ctx)).toMatchSnapshot();
   });
 
   it("should throw error if event != 'pull_request'", () => {
@@ -66,21 +61,11 @@ describe('getInputs', () => {
       'github-token': 'mock-token',
       tags: 'test:,data:,more',
       'review-message': 'hello world',
-      'ignore-pattern': 'mock-pattern'
+      'ignore-pattern': 'mock-pattern',
+      'comment-title': 'my title'
     };
     const inputs = getInputs();
 
-    expect(inputs).toEqual({
-      token: 'mock-token',
-      tags: ['test:', 'data:', 'more'],
-      reviewMsg: 'hello world',
-      ignoreFilesPattern: 'mock-pattern'
-    });
-  });
-
-  it("should throw error if 'GITHUB_TOKEN' is not provided", () => {
-    expect(() => getInputs()).toThrowError(
-      "Action needs 'GITHUB_TOKEN' in order to work correctly"
-    );
+    expect(inputs).toMatchSnapshot();
   });
 });

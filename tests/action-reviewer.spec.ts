@@ -23,10 +23,11 @@ const mockOctokit = {
 const owner = 'mock-owner';
 const repo = 'mock-repo';
 const prNumber = 10;
+const commentTitle = 'mock-title';
 
 describe('ActionReviewer', () => {
-  const actionReviewer = new ActionReviewer({
-    octokit: mockOctokit,
+  const actionReviewer = new ActionReviewer(mockOctokit, {
+    commentTitle,
     owner,
     repo,
     prNumber
@@ -62,7 +63,7 @@ describe('ActionReviewer', () => {
         user: {
           login: 'github-actions[bot]'
         },
-        body: '## Todo Commenter\n',
+        body: `## ${commentTitle}\n`,
         id: prNumber
       }
     ];
@@ -98,11 +99,11 @@ describe('ActionReviewer', () => {
         user: {
           login: 'github-actions[bot]'
         },
-        body: '## Todo Commenter\n',
+        body: `## ${commentTitle}\n`,
         id: prNumber
       }
     ];
-    await actionReviewer.createReview('## Todo Commenter\n');
+    await actionReviewer.createReview(mockData[2].body);
 
     expect(listSpy).toHaveBeenCalledWith({
       owner,
