@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/gkampitakis/github-action-todo-commenter/compare/v1.0.1...v1.1.0) (2021-11-08)
+
+
+### Features
+
+* add action parameter for comment title ([62a4fbc](https://github.com/gkampitakis/github-action-todo-commenter/commit/62a4fbc67ad44824246b4f605857082c7f4719a2))
+
 ## [1.0.1](https://github.com/gkampitakis/github-action-todo-commenter/compare/v1.0.0...v1.0.1) (2021-10-20)
 
 
