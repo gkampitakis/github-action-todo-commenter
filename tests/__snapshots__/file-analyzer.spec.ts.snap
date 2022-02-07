@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FileAnalyzer should returned all identified comments 1`] = `
+exports[`FileAnalyzer should return all comments if no patch provided 1`] = `
 Array [
   Object {
     "comments": Object {
@@ -13,17 +13,25 @@ Array [
       "NOTE": Array [
         Object {
           "comment": "Please don't forget review",
-          "line": 10,
+          "line": 12,
         },
         Object {
           "comment": "another note",
-          "line": 11,
+          "line": 13,
         },
       ],
       "tODo:": Array [
         Object {
+          "comment": "this is an old comment",
+          "line": 8,
+        },
+        Object {
           "comment": "this should present",
-          "line": 9,
+          "line": 11,
+        },
+        Object {
+          "comment": "placeholder function",
+          "line": 16,
         },
       ],
     },
@@ -32,4 +40,76 @@ Array [
 ]
 `;
 
-exports[`FileAnalyzer should skip files with no matches 1`] = `Array []`;
+exports[`FileAnalyzer should return all identified comments 1`] = `
+Array [
+  Object {
+    "comments": Object {
+      "FIXME:": Array [
+        Object {
+          "comment": ":add implementation",
+          "line": 6,
+        },
+      ],
+      "NOTE": Array [
+        Object {
+          "comment": "Please don't forget review",
+          "line": 12,
+        },
+      ],
+      "tODo:": Array [
+        Object {
+          "comment": "this should present",
+          "line": 11,
+        },
+        Object {
+          "comment": "placeholder function",
+          "line": 16,
+        },
+      ],
+    },
+    "file": "./tests/mockFiles/mockFile0.js",
+  },
+]
+`;
+
+exports[`FileAnalyzer should skip comments not included on the pr 1`] = `
+Array [
+  Object {
+    "comments": Object {
+      "NOTE": Array [
+        Object {
+          "comment": "another note",
+          "line": 13,
+        },
+      ],
+      "tODo:": Array [
+        Object {
+          "comment": "this should present",
+          "line": 11,
+        },
+        Object {
+          "comment": "placeholder function",
+          "line": 16,
+        },
+      ],
+    },
+    "file": "./tests/mockFiles/mockFile0.js",
+  },
+]
+`;
+
+exports[`FileAnalyzer should skip files with no matches 1`] = `
+Array [
+  Object {
+    "comments": Object {
+      "TODO:": Array [
+        Object {
+          "comment": "we should write tests",
+          "line": 5,
+        },
+      ],
+    },
+    "file": "./tests/mockFiles/mockFile0.js",
+  },
+]
+`;

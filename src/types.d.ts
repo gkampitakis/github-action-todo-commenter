@@ -34,6 +34,8 @@ export type GetActionParams = {
   actor: string;
   owner: string;
   repo: string;
+  base: string;
+  head: string;
   prNumber: number;
 };
 
@@ -48,5 +50,7 @@ export type GetFilesParams = {
   owner: string;
   repo: string;
   prNumber: number;
+  base: string;
+  head: string;
   ignoreFilesPattern?: string;
 };
