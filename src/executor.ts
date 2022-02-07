@@ -11,7 +11,8 @@ export async function run() {
   try {
     const { tags, reviewMsg, token, ignoreFilesPattern, commentTitle } =
       getInputs();
-    const { actor, owner, prNumber, repo } = getActionParameters(context);
+    const { actor, owner, prNumber, repo, base, head } =
+      getActionParameters(context);
     const octokit = getOctokit(token);
 
     const files = await getFiles({
@@ -19,6 +20,8 @@ export async function run() {
       repo,
       owner,
       prNumber,
+      base,
+      head,
       ignoreFilesPattern
     });
     const analyzedComments = await fileAnalyzer(files, tags);

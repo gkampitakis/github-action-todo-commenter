@@ -17,9 +17,13 @@ describe('getActionParameters', () => {
       },
       eventName: 'pull_request',
       payload: {
-        pull_request: { number: 10 }
+        pull_request: {
+          number: 10,
+          base: { ref: 'master' },
+          head: { ref: 'pr' }
+        }
       }
-    } as Context;
+    } as unknown as Context;
 
     expect(getActionParameters(ctx)).toMatchSnapshot();
   });

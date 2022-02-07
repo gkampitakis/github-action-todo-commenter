@@ -26,6 +26,8 @@ export function getActionParameters(ctx: Context): GetActionParams {
     eventName,
     payload: { pull_request }
   } = ctx;
+  const base = pull_request?.base?.ref;
+  const head = pull_request?.head?.ref;
 
   if (eventName !== 'pull_request') {
     throw new Error('Action only supports pull requests');
@@ -39,6 +41,8 @@ export function getActionParameters(ctx: Context): GetActionParams {
     actor,
     owner,
     repo,
+    base,
+    head,
     prNumber: pull_request?.number
   };
 }

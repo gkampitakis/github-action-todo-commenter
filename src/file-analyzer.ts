@@ -4,7 +4,7 @@ import path from 'path';
 import { Comments, EnhancedTag, FileAnalyzerResults } from './types';
 
 export async function fileAnalyzer(
-  filePaths: string[],
+  diffs: { filename: string; patch?: string }[],
   tags: string[]
 ): Promise<FileAnalyzerResults> {
   const enhancedTags = tags.map(tag => ({
@@ -14,28 +14,64 @@ export async function fileAnalyzer(
   const ignoreMinSize = Math.min(...tags.map(t => t.length));
   const result: FileAnalyzerResults = [];
 
-  for (const filePath of filePaths) {
-    const absolutePath = path.join(process.cwd(), filePath);
-    const comments = await readFile(absolutePath, enhancedTags, ignoreMinSize);
+  for (const { filename, patch } of diffs) {
+    const absolutePath = path.join(process.cwd(), filename);
+    const newComments = parsePatch(enhancedTags, patch);
+    const parsedComments = await readFile(
+      absolutePath,
+      newComments,
+      enhancedTags,
+      ignoreMinSize
+    );
 
-    if (Object.values(comments).length === 0) continue;
+    if (Object.values(parsedComments).length === 0) continue;
 
     result.push({
-      file: filePath,
-      comments
+      file: filename,
+      comments: parsedComments
     });
   }
 
   return result;
 }
 
+function parsePatch(
+  tags: EnhancedTag[],
+  patch?: string
+): Record<string, string[]> {
+  if (!patch) {
+    return {};
+  }
+  const lines = patch.split('\n');
+  const addedComments: Record<string, string[]> = {};
+
+  for (const line of lines) {
+    if (line[0] !== '+') continue;
+
+    for (const { tag, regex } of tags) {
+      const comment = extractCommentFromLine(line, regex);
+      if (!comment) continue;
+
+      if (addedComments[tag]) {
+        addedComments[tag].push(comment);
+        continue;
+      }
+      addedComments[tag] = [comment];
+    }
+  }
+
+  return addedComments;
+}
+
 async function readFile(
   filepath: string,
+  newComments: Record<string, string[]>,
   tags: EnhancedTag[],
   ignoreMinSize: number
 ): Promise<Comments> {
   let lineCounter = 0;
   const comments: Comments = {};
+  const patchExists = Boolean(Object.keys(newComments).length);
   const stream = createReadStream(filepath, 'utf-8');
   const rl = createInterface({
     input: stream,
@@ -47,11 +83,9 @@ async function readFile(
     if (ignoreMinSize > line.length) continue;
 
     for (const { tag, regex } of tags) {
-      const matched = line.match(regex);
-
-      if (!matched) continue;
-
-      const comment = matched[1].trim();
+      const comment = extractCommentFromLine(line, regex);
+      if (!comment) continue;
+      if (patchExists && isOldComment(newComments[tag], comment)) continue;
 
       if (comments[tag]) {
         comments[tag].push({
@@ -71,4 +105,13 @@ async function readFile(
   }
 
   return comments;
+}
+
+function isOldComment(newComments: string[], comment: string): boolean {
+  return !newComments?.includes(comment);
+}
+
+function extractCommentFromLine(line: string, rgx: RegExp): string {
+  const matched = line.match(rgx);
+  return matched ? matched[1].trim() : '';
 }

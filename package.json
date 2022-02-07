@@ -11,7 +11,7 @@
     "prepare": "husky install",
     "tsc": "tsc",
     "bundle": "tsc && ncc build ./dist/index.js -m -o ./lib",
-    "test": " jest",
+    "test": "jest",
     "format": "prettier --write '**/*.ts'",
     "format-check": "prettier --check '**/*.ts'",
     "lint": "eslint src/**/*.ts"

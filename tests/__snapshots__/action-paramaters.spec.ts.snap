@@ -3,6 +3,8 @@
 exports[`getActionParameters should return action parameters 1`] = `
 Object {
   "actor": "mock-actor",
+  "base": "master",
+  "head": "pr",
   "owner": "mock-owner",
   "prNumber": 10,
   "repo": "mock-repo",

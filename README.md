@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Create Todo Comments
         uses: gkampitakis/github-action-todo-commenter@v1
         with:
@@ -26,8 +28,39 @@ jobs:
 
 ![Example](./docs/example.png)
 
+## Note
+
+This action uses the [octokit](https://octokit.github.io/rest.js/v18#pulls) for
+diffs in a pr. 
+
+```js
+const { data: diff } = await octokit.rest.pulls.get({
+  owner: "octokit",
+  repo: "rest.js",
+  pull_number: 123,
+  mediaType: {
+    format: "diff",
+  },
+});
+```
+
+In some cases the api doesn't return the `diff` so the action needs to run
+`git diff`. So you need to set
+
+```yaml
+- name: Checkout
+  uses: actions/checkout@v2
+  with:
+    fetch-depth: 0
+```
+
+If for some reason you can't set checkout action with this option, the 
+`commenter` will still work with a `warning` and all the comments inside the file, 
+matching the tags will be included.
+
 ---
 
-> For releasing and versioning the github action https://github.com/actions/toolkit/blob/master/docs/action-versioning.md#recommendations.
+> For releasing and versioning the github action 
+https://github.com/actions/toolkit/blob/master/docs/action-versioning.md#recommendations.
 
 **License MIT**
