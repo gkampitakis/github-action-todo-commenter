@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/gkampitakis/github-action-todo-commenter/compare/v1.1.0...v1.1.1) (2022-02-08)
+
+
+### Bug Fixes
+
+* include only comments added on pr ([0f46701](https://github.com/gkampitakis/github-action-todo-commenter/commit/0f46701a5bf3fb797993fc93661056c79bde79e9))
+
 # [1.1.0](https://github.com/gkampitakis/github-action-todo-commenter/compare/v1.0.1...v1.1.0) (2021-11-08)
 
 
