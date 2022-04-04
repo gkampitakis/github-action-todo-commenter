@@ -23,14 +23,18 @@ export async function getFiles({
     }
   });
 
+  // Filter out submodules
   const untracked = ['removed', 'unchanged'];
   let matcher = (file: typeof prFiles[number]) =>
-    !untracked.includes(file.status) && Boolean(file.additions);
+    !untracked.includes(file.status) &&
+    Boolean(file.additions) &&
+    Boolean(file.blob_url);
 
   if (ignoreFilesPattern) {
     const regex = new RegExp(ignoreFilesPattern);
     matcher = (file: typeof prFiles[number]) =>
       !untracked.includes(file.status) &&
+      Boolean(file.blob_url) &&
       Boolean(file.additions) &&
       !file.filename.match(regex);
   }
