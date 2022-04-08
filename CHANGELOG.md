@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/gkampitakis/github-action-todo-commenter/compare/v1.1.1...v1.1.2) (2022-04-08)
+
+
+### Bug Fixes
+
+* handle error while reading a file ([17fb21d](https://github.com/gkampitakis/github-action-todo-commenter/commit/17fb21d196922cc432c908fae25ad326a8020a43))
+
 ## [1.1.1](https://github.com/gkampitakis/github-action-todo-commenter/compare/v1.1.0...v1.1.1) (2022-02-08)
 
 
