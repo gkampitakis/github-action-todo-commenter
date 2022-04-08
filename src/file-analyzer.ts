@@ -2,6 +2,7 @@ import { createReadStream } from 'fs';
 import { createInterface } from 'readline';
 import path from 'path';
 import { Comments, EnhancedTag, FileAnalyzerResults } from './types';
+import { warning } from '@actions/core';
 
 export async function fileAnalyzer(
   diffs: { filename: string; patch?: string }[],
@@ -17,12 +18,21 @@ export async function fileAnalyzer(
   for (const { filename, patch } of diffs) {
     const absolutePath = path.join(process.cwd(), filename);
     const newComments = parsePatch(enhancedTags, patch);
-    const parsedComments = await readFile(
-      absolutePath,
-      newComments,
-      enhancedTags,
-      ignoreMinSize
-    );
+    let parsedComments: Comments = {};
+
+    try {
+      parsedComments = await readFile(
+        absolutePath,
+        newComments,
+        enhancedTags,
+        ignoreMinSize
+      );
+    } catch (error: any) {
+      warning(error, {
+        file: absolutePath,
+        title: "Can't read file"
+      });
+    }
 
     if (Object.values(parsedComments).length === 0) continue;
 
