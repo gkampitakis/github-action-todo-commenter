@@ -1,7 +1,7 @@
 import { getInput } from '@actions/core';
 import { Context } from '@actions/github/lib/context';
 
-import { GetInputParams, GetActionParams } from './types';
+import { GetActionParams, GetInputParams } from './types';
 
 export function getInputs(): GetInputParams {
   const tags = getInput('tags') || 'TODO:,FIXME:,BUG:';
@@ -28,6 +28,8 @@ export function getActionParameters(ctx: Context): GetActionParams {
   } = ctx;
   const base = pull_request?.base?.ref;
   const head = pull_request?.head?.ref;
+
+  console.log(eventName);
 
   if (eventName !== 'pull_request') {
     throw new Error('Action only supports pull requests');
