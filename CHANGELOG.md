@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/gkampitakis/github-action-todo-commenter/compare/v1.1.2...v1.2.0) (2023-04-17)
+
+
+### Features
+
+* update deps and node version on CI ([#15](https://github.com/gkampitakis/github-action-todo-commenter/issues/15)) ([216bb94](https://github.com/gkampitakis/github-action-todo-commenter/commit/216bb9448046cf2f0ba41ddf4659c4a53ceefbf9))
+
 ## [1.1.2](https://github.com/gkampitakis/github-action-todo-commenter/compare/v1.1.1...v1.1.2) (2022-04-08)
 
 
