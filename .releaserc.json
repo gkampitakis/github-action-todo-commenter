@@ -1,4 +1,5 @@
 {
+  "branches": ["main"],
   "repositoryUrl": "git@github.com:gkampitakis/github-action-todo-commenter.git",
   "plugins": [
     "@semantic-release/commit-analyzer",
