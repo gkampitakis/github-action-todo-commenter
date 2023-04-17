@@ -24,12 +24,12 @@ export async function getFiles({
   });
 
   const untracked = ['removed', 'unchanged'];
-  let matcher = (file: typeof prFiles[number]) =>
+  let matcher = (file: (typeof prFiles)[number]) =>
     !untracked.includes(file.status) && Boolean(file.additions);
 
   if (ignoreFilesPattern) {
     const regex = new RegExp(ignoreFilesPattern);
-    matcher = (file: typeof prFiles[number]) =>
+    matcher = (file: (typeof prFiles)[number]) =>
       !untracked.includes(file.status) &&
       Boolean(file.additions) &&
       !file.filename.match(regex);

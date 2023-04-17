@@ -35,7 +35,7 @@ describe('getActionParameters', () => {
       payload: {}
     } as Context;
 
-    expect(() => getActionParameters(ctx)).toThrowError(
+    expect(() => getActionParameters(ctx)).toThrow(
       'Action only supports pull requests'
     );
   });
@@ -49,7 +49,7 @@ describe('getActionParameters', () => {
       }
     } as Context;
 
-    expect(() => getActionParameters(ctx)).toThrowError(
+    expect(() => getActionParameters(ctx)).toThrow(
       'Action cannot identify pull request number'
     );
   });
