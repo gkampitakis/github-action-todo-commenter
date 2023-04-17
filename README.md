@@ -22,7 +22,12 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           ignore-pattern: '.js$|.snap$'
           review-message: "Please take a look :eyes:"
+          # optional, default is "TODO:,FIXME:,BUG:"
+          tags: "TODO:,FIXME:,BUG:"
 ```
+
+Supports using a regex pattern for ignoring files (e.g. test files) with `ignore-pattern` and 
+you can add your own tags ( keywords ) in the `tags` field with a comma separated string.
 
 ## Example
 
