@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`getActionParameters should return action parameters 1`] = `
-Object {
+{
   "actor": "mock-actor",
   "base": "master",
   "head": "pr",
@@ -12,11 +12,11 @@ Object {
 `;
 
 exports[`getInputs should return all inputs 1`] = `
-Object {
+{
   "commentTitle": "my title",
   "ignoreFilesPattern": "mock-pattern",
   "reviewMsg": "hello world",
-  "tags": Array [
+  "tags": [
     "test:",
     "data:",
     "more",

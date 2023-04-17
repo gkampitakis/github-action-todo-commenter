@@ -7,7 +7,10 @@ const execSpy = jest.fn();
 const diffCMD = 'git diff origin/master...origin/pr -- src/data.ts';
 
 jest.mock('util', () => {
+  const original = jest.requireActual('util');
+
   return {
+    ...original,
     promisify: () => async (command: string) => {
       await sleep(2000);
       execSpy(command);
