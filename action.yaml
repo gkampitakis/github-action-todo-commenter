@@ -2,7 +2,7 @@ name: 'github-action-todo-commenter'
 description: Parses pull request files based on tags and creates a comment with a task list
 author: Georgios Kampitakis
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'lib/index.js'
 branding:
   icon: 'check-circle'
