@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/gkampitakis/github-action-todo-commenter/compare/v1.2.0...v1.2.1) (2023-05-08)
+
+
+### Bug Fixes
+
+* node version ([#16](https://github.com/gkampitakis/github-action-todo-commenter/issues/16)) ([5142fd9](https://github.com/gkampitakis/github-action-todo-commenter/commit/5142fd92028a016b06b9070d2978e181b23a966d)), closes [#17](https://github.com/gkampitakis/github-action-todo-commenter/issues/17)
+
 # [1.2.0](https://github.com/gkampitakis/github-action-todo-commenter/compare/v1.1.2...v1.2.0) (2023-04-17)
 
 
