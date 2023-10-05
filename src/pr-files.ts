@@ -14,7 +14,7 @@ export async function getFiles({
   head,
   ignoreFilesPattern
 }: GetFilesParams) {
-  const prFiles = await octokit.paginate(octokit.rest.pulls.listFiles({
+  const prFiles = await octokit.paginate(octokit.rest.pulls.listFiles, {
     owner,
     repo,
     pull_number: prNumber,
