@@ -14,10 +14,11 @@ export async function getFiles({
   head,
   ignoreFilesPattern
 }: GetFilesParams) {
-  const { data: prFiles } = await octokit.rest.pulls.listFiles({
+  const prFiles = await octokit.paginate(octokit.rest.pulls.listFiles({
     owner,
     repo,
     pull_number: prNumber,
+    per_page: 100,
     mediaType: {
       format: 'diff'
     }
