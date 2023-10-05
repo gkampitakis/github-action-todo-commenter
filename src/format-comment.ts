@@ -11,7 +11,7 @@ export function formatComment(
     message += `<summary><strong>${file}</strong></summary>\n`;
 
     Object.entries(comments).forEach(([key, items]) => {
-      message += `\n##### ${key}\n\n`;
+      message += `\n##### `${key}`\n\n`;
 
       items.forEach(item => {
         if (item.comment === '') {
