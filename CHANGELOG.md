@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/gkampitakis/github-action-todo-commenter/compare/v1.2.1...v1.3.0) (2024-03-14)
+
+
+### Features
+
+* update to node 20 ([#22](https://github.com/gkampitakis/github-action-todo-commenter/issues/22)) ([1bfe2ad](https://github.com/gkampitakis/github-action-todo-commenter/commit/1bfe2ad296fe00a9718b335ab02d86e2a6bb906b))
+
 ## [1.2.1](https://github.com/gkampitakis/github-action-todo-commenter/compare/v1.2.0...v1.2.1) (2023-05-08)
 
 
